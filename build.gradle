@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'java-library'
+}
+
+group 'co.com.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://lbdev.ionix.cl/artifactory/libs-release-local'
+        credentials {
+          username 'gitlabrelease'
+          password 'gitlabrelease'
+        }
+    }
+}
+
+ext {
+    junitVersion = '5.10.2'
+    seleniumJavaVersion = '4.20.0'
+    webDriverVersion = '5.9.1'
+    appiumJavaClientVersion = '9.2.3'
+    cucumberJunitVersion = '7.18.0'
+    postgrestqlVersion = '42.7.3'
+}
+
+dependencies {
+    implementation(group: 'ionix.utils', name: 'java-utilities', version: '1.0.0', classifier: 'RELEASE')
+    implementation ("io.appium:java-client:${appiumJavaClientVersion}")
+    implementation ("org.postgresql:postgresql:${postgrestqlVersion}")
+    implementation ("com.google.code.gson:gson:2.11.0")
+    implementation ("org.apache.logging.log4j:log4j-core:2.23.1")
+    implementation ("com.microsoft.sqlserver:mssql-jdbc:12.6.1.jre11")
+
+    testImplementation("org.seleniumhq.selenium:selenium-java:${seleniumJavaVersion}")
+    testImplementation("io.github.bonigarcia:webdrivermanager:${webDriverVersion}")
+    testImplementation('org.hamcrest:hamcrest:2.2')
+    testImplementation("io.cucumber:cucumber-junit:${cucumberJunitVersion}")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
