@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configuración de la consola -->
+<Configuration status="INFO">
+    <Appenders class="ch.qos.logback.core.ConsoleAppender">
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%-5level]) %cyan(%logger{36}) - %msg%n
+            </pattern>
+        </Console>
+    </Appenders>
+    <!-- Configuración de niveles de log -->
+    <Loggers name="qa.cl.ionix.edenred.beneficiario" level="debug" additivity="false">
+        <Root level="info" additivity="false">
+            <AppenderRef ref="CONSOLE" />
+        </Root>
+    </Loggers>
+</Configuration>
