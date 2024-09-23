@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.MalformedJsonException;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -21,7 +20,8 @@ public class JFrogDownloader {
 
     private OkHttpClient client;
     private String nameApp = null;
-    private String version = null;
+    private static String jFrogUser = System.getenv("ART_RELEASE_USER");
+    private static String jFrogPass = System.getenv("ART_RELEASE_PASS");
     private static final Logger logger = LoggerFactory.getLogger(JFrogDownloader.class);
 
 
@@ -60,7 +60,7 @@ public class JFrogDownloader {
 
     public String getLatestVersion(String url) throws IOException {
         String urlFinal = "";
-        String credentials = Credentials.basic("gitlabrelease", "gitlabrelease");
+        String credentials = Credentials.basic(jFrogUser, jFrogPass);
         Request request = new Request.Builder()
                 .url(url)
                 .header("Authorization", credentials)
@@ -125,7 +125,7 @@ public class JFrogDownloader {
         }
 
         logger.info("URL descargas: {}", url);
-        String credentials = Credentials.basic("gitlabrelease", "gitlabrelease");
+        String credentials = Credentials.basic(jFrogUser, jFrogPass);
         String detino = System.getProperty("user.dir") + "/src/test/resources/apps" + outputFileName;
         Request request = new Request.Builder()
                 .url(url)
